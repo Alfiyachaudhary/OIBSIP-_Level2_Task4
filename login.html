@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Auth System</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #eef2ff;
+            padding: 40px;
+        }
+        .box {
+            width: 300px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #4e5cf0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #3b4ad9;
+        }
+        #securePage {
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 style="text-align:center;">Login Authentication System</h2>
+
+    <!-- Register Box -->
+    <div class="box" id="registerBox">
+        <h3>Register</h3>
+        <input type="text" id="regUser" placeholder="Enter Username">
+        <input type="password" id="regPass" placeholder="Enter Password">
+        <button onclick="register()">Register</button>
+    </div>
+
+    <!-- Login Box -->
+    <div class="box" id="loginBox">
+        <h3>Login</h3>
+        <input type="text" id="loginUser" placeholder="Enter Username">
+        <input type="password" id="loginPass" placeholder="Enter Password">
+        <button onclick="login()">Login</button>
+    </div>
+
+    <!-- Secured Page -->
+    <div class="box" id="securePage">
+        <h3>Welcome to Secure Page</h3>
+        <p>You are successfully logged in.</p>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        // Register function
+        function register() {
+            let user = document.getElementById("regUser").value;
+            let pass = document.getElementById("regPass").value;
+
+            if (user === "" || pass === "") {
+                alert("Please fill all fields!");
+                return;
+            }
+
+            localStorage.setItem("username", user);
+            localStorage.setItem("password", pass);
+
+            alert("Registration Successful!");
+        }
+
+        // Login function
+        function login() {
+            let user = document.getElementById("loginUser").value;
+            let pass = document.getElementById("loginPass").value;
+
+            let savedUser = localStorage.getItem("username");
+            let savedPass = localStorage.getItem("password");
+
+            if (user === savedUser && pass === savedPass) {
+                alert("Login Successful!");
+
+                document.getElementById("loginBox").style.display = "none";
+                document.getElementById("registerBox").style.display = "none";
+                document.getElementById("securePage").style.display = "block";
+            } else {
+                alert("Invalid username or password!");
+            }
+        }
+
+        // Logout function
+        function logout() {
+            document.getElementById("securePage").style.display = "none";
+            document.getElementById("loginBox").style.display = "block";
+            alert("Logged out successfully");
+        }
+    </script>
+
+</body>
+</html>
